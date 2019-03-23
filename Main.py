@@ -18,8 +18,8 @@ class ColourArea:
         self.x = x
         self.widget = Frame(colours, borderwidth=1, relief=GROOVE)
         self.colour = Label(self.widget, bg=self.hex)
-        self.hex_text = Label(self.widget, text=self.hex, bg = "#D0D0D0")
-        self.rgb_text = Label(self.widget, text=hexToRgb(self.hex), bg="#D0D0D0")
+        self.hex_text = Text(self.widget, bg="#D0D0D0")
+        self.rgb_text = Text(self.widget, bg="#D0D0D0")
         self.keep = False
 
     def toggleKeep(self):
@@ -39,7 +39,11 @@ class ColourArea:
             self.colour.configure(highlightbackground = 'white', borderwidth=3, relief=SUNKEN)
         else:
             self.colour.configure(highlightbackground = 'white', borderwidth=3, relief=RAISED)
+        self.hex_text.insert(END, self.hex)
+        self.hex_text.configure(state="disabled")
         self.hex_text.place(relx = 0, rely = 0.8, relwidth = 1, relheight=0.1)
+        self.rgb_text.insert(END, hexToRgb(self.hex))
+        self.rgb_text.configure(state="disabled")
         self.rgb_text.place(relx=0, rely=0.9, relwidth=1, relheight=0.1)
 
 def getRandomColour():
@@ -66,8 +70,8 @@ def renderColours():
 
             c.hex = getRandomColour()
             c.colour = Label(c.widget, bg=c.hex)
-            c.hex_text = Label(c.widget, text=c.hex, bg="#D0D0D0")
-            c.rgb_text = Label(c.widget, text=hexToRgb(c.hex), bg="#D0D0D0")
+            c.hex_text = Text(c.widget, bg="#D0D0D0")
+            c.rgb_text = Text(c.widget, bg="#D0D0D0")
 
             c.render()
 
